@@ -1,0 +1,31 @@
+[package]
+name = "treats"
+version = "0.0.0"
+edition = "2024"
+authors = [ "Toxikuu" ]
+description = "A collection of utility traits for Rust's standard library"
+homepage = "https://github.com/Toxikuu/treats"
+repository = "https://github.com/Toxikuu/treats"
+license = "0BSD"
+readme = "README.md"
+keywords = [
+    "traits",
+    "utility",
+]
+
+[dependencies]
+
+[features]
+path_to_string = []
+option_inspect_none = []
+full = [ "path_to_string", "option_inspect_none" ]
+# default = []
+default = [ "full" ]
+
+[lints.clippy]
+pedantic = { level = "warn", priority = -1 }
+correctness = { level = "deny", priority = 9 }
+suspicious = { level = "deny", priority = 8 }
+complexity = { level = "deny", priority = 7 }
+perf = { level = "deny", priority = 6 }
+nursery = { level = "deny", priority = 2 }
