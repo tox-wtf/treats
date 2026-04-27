@@ -62,6 +62,8 @@ impl<E> Permit<E> for Result<(), E> {
 #[cfg(test)]
 mod tests {
     use super::*;
+    extern crate std;
+
     use std::io::{self, ErrorKind, Write};
     use std::string::ToString;
     use std::fs;
