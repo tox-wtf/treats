@@ -1,0 +1,57 @@
+name: Publish
+description: |
+  Publish to crates.io and create a new GitHub release on new versioned tags.
+
+on:
+  push:
+    tags:
+      - '*.*.*'
+
+# https://github.com/marketplace/actions/gh-release#permissions
+permissions:
+  contents: write
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+
+    env:
+      CARGO_REGISTRY_TOKEN: ${{ secrets.CARGO_REGISTRY_TOKEN }}
+      REF_NAME: ${{ github.ref_name }}
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v6
+
+      - name: Check Cargo.toml
+        run: |
+          echo "Ensuring Cargo.toml mentioned ${REF_NAME}..."
+          if ! grep -q "version = ${REG_NAME}" Cargo.toml; then
+            echo "Cargo.toml does not mention version ${REF_NAME} :("
+            exit 1
+          fi
+          echo 'Cargo.toml is good! Good job!! <3'
+
+      - name: Install rust
+        uses: actions-rust-lang/setup-rust-toolchain@v1
+        with:
+          cache: true
+          override: true
+
+      - name: Publish crate
+        run: |
+          if cargo publish --locked 2>&1 | tee /tmp/publish.log | grep -q 'already exists on crates.io index'; then
+            echo "Version ${REF_NAME} already published. Continuing."
+          fi
+          echo "Publish log:"
+          cat /tmp/publish.log
+
+      # https://github.com/marketplace/actions/gh-release
+      - name: Create github release
+        uses: softprops/action-gh-release@v3
+        with:
+          name: ${{ github.ref_name }}
+          tag_name: ${{ github.ref_name }}
+          generate_release_notes: true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
