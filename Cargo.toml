@@ -16,8 +16,8 @@ keywords = [
 [dependencies]
 
 [dev-dependencies]
-anyhow = "*"
-pretty_assertions = "*"
+anyhow = "1"
+pretty_assertions = "1"
 
 [features]
 inspect_none = []
