@@ -45,6 +45,7 @@ jobs:
 
       - name: Publish crate
         run: |
+          set -euo pipefail
           if cargo publish --locked 2>&1 | tee /tmp/publish.log | grep -q 'already exists on crates.io index'; then
             echo "Version ${REF_NAME} already published. Continuing."
           fi
