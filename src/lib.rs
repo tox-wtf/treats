@@ -17,5 +17,7 @@
 #[cfg(feature = "permit")] pub use permit::*;
 
 #[cfg(test)]
+#[allow(clippy::useless_attribute)]
+#[allow(unused_imports)]
 #[macro_use]
 extern crate pretty_assertions;
