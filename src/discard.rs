@@ -7,25 +7,27 @@ pub trait Discard {
 impl<T> Discard for T {
     /// Discard any `T`.
     ///
-    /// This is functionally equivalent to `let _ = ...` but is occasionally more convenient.
+    /// This is functionally equivalent to `let _ = ...` but is occasionally
+    /// more convenient.
     ///
     /// # Examples
     /// ```
-    /// use treats::Discard;
     /// use std::sync::OnceLock;
     ///
-    /// static FLAG_FORCE:   OnceLock<bool> = OnceLock::new();
+    /// use treats::Discard;
+    ///
+    /// static FLAG_FORCE: OnceLock<bool> = OnceLock::new();
     /// static FLAG_VERBOSE: OnceLock<bool> = OnceLock::new();
-    /// static FLAG_QUIET:   OnceLock<bool> = OnceLock::new();
+    /// static FLAG_QUIET: OnceLock<bool> = OnceLock::new();
     ///
     /// fn parse_args() {
     ///     for arg in std::env::args().skip(1) {
     ///         if arg.starts_with("--") {
     ///             match arg.as_str() {
-    ///                 "--force"   => FLAG_FORCE.set(true).discard(),
-    ///                 "--verbose" => FLAG_VERBOSE.set(true).discard(),
-    ///                 "--quiet"   => FLAG_QUIET.set(true).discard(),
-    ///                 _ => eprintln!("unknown flag: {arg}"),
+    ///                 | "--force" => FLAG_FORCE.set(true).discard(),
+    ///                 | "--verbose" => FLAG_VERBOSE.set(true).discard(),
+    ///                 | "--quiet" => FLAG_QUIET.set(true).discard(),
+    ///                 | _ => eprintln!("unknown flag: {arg}"),
     ///             }
     ///         }
     ///     }

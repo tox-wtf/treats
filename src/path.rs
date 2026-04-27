@@ -1,6 +1,7 @@
 //! Convenience traits for [`Path`] and [`PathBuf`]s
 
-use std::{path::{Path, PathBuf}, ffi::{OsStr, OsString}};
+use std::ffi::{OsStr, OsString};
+use std::path::{Path, PathBuf};
 
 pub trait PathToString {
     fn to_lossy_string(&self) -> String;
@@ -15,22 +16,17 @@ impl PathToString for Path {
     ///
     /// ```
     /// use std::path::Path;
+    ///
     /// use treats::PathToString;
     ///
-    /// fn path_len<P: AsRef<Path>>(path: P) -> usize {
-    ///     path.as_ref().to_lossy_string().len()
-    /// }
+    /// fn path_len<P: AsRef<Path>>(path: P) -> usize { path.as_ref().to_lossy_string().len() }
     /// ```
     #[inline]
-    fn to_lossy_string(&self) -> String {
-        self.to_string_lossy().to_string()
-    }
+    fn to_lossy_string(&self) -> String { self.to_string_lossy().to_string() }
 
     /// Yields a [`String`] if the [`Path`] is valid unicode.
     #[inline]
-    fn to_string(&self) -> Option<String> {
-        self.to_str().map(ToString::to_string)
-    }
+    fn to_string(&self) -> Option<String> { self.to_str().map(ToString::to_string) }
 }
 
 impl PathToString for PathBuf {
@@ -40,22 +36,17 @@ impl PathToString for PathBuf {
     ///
     /// ```
     /// use std::path::Path;
+    ///
     /// use treats::PathToString;
     ///
-    /// fn path_len<P: AsRef<Path>>(path: P) -> usize {
-    ///     path.as_ref().to_lossy_string().len()
-    /// }
+    /// fn path_len<P: AsRef<Path>>(path: P) -> usize { path.as_ref().to_lossy_string().len() }
     /// ```
     #[inline]
-    fn to_lossy_string(&self) -> String {
-        self.to_string_lossy().to_string()
-    }
+    fn to_lossy_string(&self) -> String { self.to_string_lossy().to_string() }
 
     /// Yields a [`String`] if the [`PathBuf`] is valid unicode.
     #[inline]
-    fn to_string(&self) -> Option<String> {
-        self.to_str().map(ToString::to_string)
-    }
+    fn to_string(&self) -> Option<String> { self.to_str().map(ToString::to_string) }
 }
 
 impl PathToString for OsStr {
@@ -65,6 +56,7 @@ impl PathToString for OsStr {
     ///
     /// ```
     /// use std::path::Path;
+    ///
     /// use treats::PathToString;
     ///
     /// fn basename<P: AsRef<Path>>(path: P) -> Option<String> {
@@ -76,9 +68,7 @@ impl PathToString for OsStr {
     /// }
     /// ```
     #[inline]
-    fn to_lossy_string(&self) -> String {
-        self.to_string_lossy().to_string()
-    }
+    fn to_lossy_string(&self) -> String { self.to_string_lossy().to_string() }
 
     /// Yields a [`String`] if the [`OsStr`] is valid unicode.
     ///
@@ -86,6 +76,7 @@ impl PathToString for OsStr {
     ///
     /// ```
     /// use std::path::Path;
+    ///
     /// use treats::PathToString;
     ///
     /// fn basename<P: AsRef<Path>>(path: P) -> Option<String> {
@@ -97,23 +88,17 @@ impl PathToString for OsStr {
     /// }
     /// ```
     #[inline]
-    fn to_string(&self) -> Option<String> {
-        self.to_str().map(ToString::to_string)
-    }
+    fn to_string(&self) -> Option<String> { self.to_str().map(ToString::to_string) }
 }
 
 impl PathToString for OsString {
     /// Converts an [`OsString`] into a lossy [`String`].
     #[inline]
-    fn to_lossy_string(&self) -> String {
-        self.to_string_lossy().to_string()
-    }
+    fn to_lossy_string(&self) -> String { self.to_string_lossy().to_string() }
 
     /// Yields a [`String`] if the [`OsString`] is valid unicode.
     #[inline]
-    fn to_string(&self) -> Option<String> {
-        self.to_str().map(ToString::to_string)
-    }
+    fn to_string(&self) -> Option<String> { self.to_str().map(ToString::to_string) }
 }
 
 #[cfg(test)]

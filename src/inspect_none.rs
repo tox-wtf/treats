@@ -6,7 +6,6 @@ pub trait InspectNone<T> {
 }
 
 impl<T> InspectNone<T> for Option<T> {
-
     /// Calls a function if [`None`].
     ///
     /// Returns the original option.
@@ -17,10 +16,13 @@ impl<T> InspectNone<T> for Option<T> {
     /// use treats::InspectNone;
     ///
     /// fn get_last_initial(name: &str) -> Option<char> {
-    ///     let (_, last_name) = name.rsplit_once(' ')
+    ///     let (_, last_name) = name
+    ///         .rsplit_once(' ')
     ///         .inspect_none(|| eprintln!("Name contains no spaces"))?;
     ///
-    ///     last_name.chars().next()
+    ///     last_name
+    ///         .chars()
+    ///         .next()
     ///         .inspect_none(|| eprintln!("Missing first letter of last name"))
     /// }
     /// ```
@@ -45,10 +47,13 @@ impl<T> InspectNone<T> for &Option<T> {
     /// use treats::InspectNone;
     ///
     /// fn get_last_initial(name: &str) -> Option<char> {
-    ///     let (_, last_name) = name.rsplit_once(' ')
+    ///     let (_, last_name) = name
+    ///         .rsplit_once(' ')
     ///         .inspect_none(|| eprintln!("Name contains no spaces"))?;
     ///
-    ///     last_name.chars().next()
+    ///     last_name
+    ///         .chars()
+    ///         .next()
     ///         .inspect_none(|| eprintln!("Missing first letter of last name"))
     /// }
     /// ```
@@ -60,7 +65,6 @@ impl<T> InspectNone<T> for &Option<T> {
         self
     }
 }
-
 
 #[cfg(test)]
 mod tests {

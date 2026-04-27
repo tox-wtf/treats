@@ -40,18 +40,18 @@ impl<E> Permit<E> for Result<(), E> {
         F: FnOnce(&E) -> bool,
     {
         match self {
-            Ok(()) => Ok(()),             // if result is ok, return Ok(())
-            Err(ref e) if f(e) => Ok(()), // permit the error and return Ok(())
-            Err(e) => Err(e),             // return the original error if not permitted
+            | Ok(()) => Ok(()),             // if result is ok, return Ok(())
+            | Err(ref e) if f(e) => Ok(()), // permit the error and return Ok(())
+            | Err(e) => Err(e),             // return the original error if not permitted
         }
     }
 
     #[inline]
     fn permit_if(self, condition: bool) -> Self {
         match self {
-            Ok(()) => Ok(()),              // if result is ok, return Ok(())
-            Err(_) if condition => Ok(()), // permit the error and return Ok(())
-            Err(e) => Err(e),              // return the original error if not permitted
+            | Ok(()) => Ok(()),              // if result is ok, return Ok(())
+            | Err(_) if condition => Ok(()), // permit the error and return Ok(())
+            | Err(e) => Err(e),              // return the original error if not permitted
         }
     }
 
@@ -64,9 +64,9 @@ mod tests {
     use super::*;
     extern crate std;
 
+    use std::fs;
     use std::io::{self, ErrorKind, Write};
     use std::string::ToString;
-    use std::fs;
 
     fn ls(path: &str) -> anyhow::Result<()> {
         fs::read_dir(path)?;
