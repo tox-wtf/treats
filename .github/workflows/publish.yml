@@ -31,7 +31,7 @@ jobs:
         run: |
           set -euo pipefail
           echo "Ensuring Cargo.toml mentioned ${REF_NAME}..."
-          if ! grep -q "version = ${REF_NAME}" Cargo.toml; then
+          if ! grep -q "^version = \"${REF_NAME}\"" Cargo.toml; then
             echo "Cargo.toml does not mention version ${REF_NAME} :("
             exit 1
           fi
